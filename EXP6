@@ -1,0 +1,154 @@
+
+// Practical: Demonstrate Multithreading in Java
+// Program to print even and odd numbers using two threads
+
+// Thread 1: Prints even numbers
+class EvenThread extends Thread {
+
+    public void run() {
+
+        for (int i = 0; i <= 10; i = i + 2) {
+
+            System.out.println("Even: " + i);
+
+            try {
+                // Pause the thread for 500 milliseconds
+                Thread.sleep(500);
+            }
+            catch (InterruptedException e) {
+                System.out.println("Even thread interrupted");
+                return;
+            }
+        }
+    }
+}
+
+
+// Thread 2: Prints odd numbers
+class OddThread extends Thread {
+
+    public void run() {
+
+        for (int i = 1; i <= 10; i = i + 2) {
+
+            System.out.println("Odd: " + i);
+
+            try {
+                // Pause the thread for 500 milliseconds
+                Thread.sleep(500);
+            }
+            catch (InterruptedException e) {
+                System.out.println("Odd thread interrupted");
+                return;
+            }
+        }
+    }
+}
+
+
+// Main class
+public class EvenOddThreadDemo {
+
+    public static void main(String[] args) {
+
+        // Create two thread objects
+        EvenThread even = new EvenThread();
+        OddThread odd = new OddThread();
+
+        // Start both threads
+        even.start();
+        odd.start();
+    }
+}
+Filename : EvenOddThreadDemo.java
+Part B
+
+
+// Practical: Multithreaded Train Reservation System
+// Demonstrate synchronization using multiple threads
+
+// Class representing a shared train reservation system
+class TrainReservation {
+
+    // Total available seats
+    private int availableSeats = 5;
+
+    // Synchronized method prevents multiple threads
+    // from booking seats at the same time
+    public synchronized void bookTicket(String user, int requestedSeats) {
+
+        // Check whether the requested seats are valid
+        if (requestedSeats <= 0) {
+            System.out.println(user + ": Invalid seat request.");
+        }
+
+        // Check whether enough seats are available
+        else if (requestedSeats <= availableSeats) {
+
+            System.out.println(user + " successfully booked "
+                    + requestedSeats + " ticket(s).");
+
+            // Reduce available seats
+            availableSeats = availableSeats - requestedSeats;
+        }
+        else {
+            System.out.println(user +
+                    " failed to book tickets. Not enough seats available.");
+        }
+
+        // Display remaining seats
+        System.out.println("Available seats: " + availableSeats);
+        System.out.println("--------------------------------");
+    }
+}
+
+
+// Thread class representing a user
+class User extends Thread {
+
+    // Shared reservation system reference
+    private TrainReservation reservationSystem;
+
+    // User details
+    private String userName;
+    private int seatsToBook;
+
+    // Constructor to initialize user details
+    User(TrainReservation system, String userName, int seats) {
+
+        this.reservationSystem = system;
+        this.userName = userName;
+        this.seatsToBook = seats;
+    }
+
+    // Code executed when thread starts
+    public void run() {
+
+        reservationSystem.bookTicket(userName, seatsToBook);
+    }
+}
+
+
+// Main class
+public class ReservationSystemDemo {
+
+    public static void main(String[] args) {
+
+        // Create one shared reservation system
+        TrainReservation reservationSystem = new TrainReservation();
+
+        // Create three users
+        User u1 = new User(reservationSystem, "Alice", 2);
+
+        User u2 = new User(reservationSystem, "Bob", 3);
+
+        User u3 = new User(reservationSystem, "Charlie", 2);
+
+        // Start all three user threads
+        u1.start();
+        u2.start();
+        u3.start();
+    }
+}
+
+Filename : ReservationSystemDemo.java
