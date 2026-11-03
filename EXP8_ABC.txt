@@ -1,0 +1,117 @@
+PART A: Order Management System using List
+Filename: OrderManagement.java
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Order {
+    int orderId;
+    String item;
+    double amount;
+
+    // Parameterized constructor
+    Order(int orderId, String item, double amount) {
+        this.orderId = orderId;
+        this.item = item;
+        this.amount = amount;
+    }
+
+    // Display order details
+    void display() {
+        System.out.println("Order ID: " + orderId +
+                ", Item: " + item + ", Amount: Rs." + amount);
+    }
+}
+
+public class OrderManagement {
+    public static void main(String[] args) {
+
+        // Creating a List to store orders
+        List<Order> orders = new ArrayList<>();
+
+        // Adding orders to the List
+        orders.add(new Order(101, "Laptop", 50000));
+        orders.add(new Order(102, "Phone", 25000));
+        orders.add(new Order(103, "Keyboard", 1500));
+
+        System.out.println("Customer Orders:");
+
+        // Displaying all orders
+        for (Order order : orders) {
+            order.display();
+        }
+    }
+}
+
+PART B: Movie Ticket Booking System using Queue
+Filename: MovieTicketSystem.java
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class MovieTicketSystem {
+    public static void main(String[] args) {
+
+        // Creating a Queue
+        Queue<String> ticketQueue = new LinkedList<>();
+
+        // People joining the queue
+        ticketQueue.offer("Amit");
+        ticketQueue.offer("Riya");
+        ticketQueue.offer("Sohan");
+
+        System.out.println("Booking Movie Tickets (FIFO Order):");
+
+        // Booking tickets in First In First Out order
+        while (!ticketQueue.isEmpty()) {
+            String person = ticketQueue.poll();
+            System.out.println("Ticket booked for: " + person);
+        }
+    }
+}
+
+PART C: Team Management System using Set and Map
+Filename: TeamManagement.java
+
+
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Map;
+
+public class TeamManagement {
+    public static void main(String[] args) {
+
+        // Creating a Set to store unique team members
+        Set<String> teamMembers = new HashSet<>();
+
+        teamMembers.add("Alice");
+        teamMembers.add("Bob");
+        teamMembers.add("Charlie");
+        teamMembers.add("Bob"); // Duplicate is ignored
+
+        System.out.println("Team Members (Unique):");
+
+        // Displaying unique team members
+        for (String member : teamMembers) {
+            System.out.println("- " + member);
+        }
+
+        // Creating a Map to store members and their roles
+        Map<String, String> roles = new HashMap<>();
+
+        roles.put("Alice", "Developer");
+        roles.put("Bob", "Tester");
+        roles.put("Charlie", "Project Manager");
+
+        System.out.println("\nAssigned Roles:");
+
+        // Displaying assigned roles
+        for (Map.Entry<String, String> entry : roles.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
+    }
+}
+
